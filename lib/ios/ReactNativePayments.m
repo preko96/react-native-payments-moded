@@ -152,6 +152,24 @@ RCT_EXPORT_METHOD(handleDetailsUpdate: (NSDictionary *)details
                         didAuthorizePayment:(PKPayment *)payment
                                  completion:(void (^)(PKPaymentAuthorizationStatus))completion
 {
+    // TODO: Have a proper flow... 
+    [payment shippingAddress];
+    CNPostalAddress* postalAddress = payment.shippingContact.postalAddress;
+    [self.bridge.eventDispatcher sendDeviceEventWithName:@"NativePayments:onshippingaddresschange"
+                                                    body:@{
+                                                           @"recipient": [NSNull null],
+                                                           @"organization": [NSNull null],
+                                                           @"addressLine": postalAddress.street,
+                                                           @"city": postalAddress.city,
+                                                           @"region": postalAddress.state,
+                                                           @"country": postalAddress.country,
+                                                           @"postalCode": postalAddress.postalCode,
+                                                           @"phone": [NSNull null],
+                                                           @"languageCode": [NSNull null],
+                                                           @"sortingCode": [NSNull null],
+                                                           @"dependentLocality": [NSNull null]
+                                                           }];
+
     // Store completion for later use
     self.completion = completion;
     
