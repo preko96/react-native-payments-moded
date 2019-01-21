@@ -154,6 +154,7 @@ RCT_EXPORT_METHOD(handleDetailsUpdate: (NSDictionary *)details
 {
     // TODO: Have a proper flow... 
     [payment shippingAddress];
+    NSPersonNameComponents* name = payment.shippingContact.name;
     CNPostalAddress* postalAddress = payment.shippingContact.postalAddress;
     [self.bridge.eventDispatcher sendDeviceEventWithName:@"NativePayments:onshippingaddresschange"
                                                     body:@{
@@ -167,7 +168,9 @@ RCT_EXPORT_METHOD(handleDetailsUpdate: (NSDictionary *)details
                                                            @"phone": [NSNull null],
                                                            @"languageCode": [NSNull null],
                                                            @"sortingCode": [NSNull null],
-                                                           @"dependentLocality": [NSNull null]
+                                                           @"dependentLocality": [NSNull null],
+                                                           @"givenName": name.givenName,
+                                                           @"familyName": name.familyName
                                                            }];
 
     // Store completion for later use
