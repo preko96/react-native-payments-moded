@@ -212,7 +212,8 @@ RCT_EXPORT_METHOD(handleDetailsUpdate: (NSDictionary *)details
                                                            @"phone": [NSNull null],
                                                            @"languageCode": [NSNull null],
                                                            @"sortingCode": [NSNull null],
-                                                           @"dependentLocality": [NSNull null]
+                                                           @"dependentLocality": [NSNull null],
+                                                           @"calledByDevice": @true
                                                            }];
 }
 
@@ -224,7 +225,8 @@ RCT_EXPORT_METHOD(handleDetailsUpdate: (NSDictionary *)details
     self.shippingMethodCompletion = completion;
     
     [self.bridge.eventDispatcher sendDeviceEventWithName:@"NativePayments:onshippingoptionchange" body:@{
-                                                                                                         @"selectedShippingOptionId": shippingMethod.identifier
+                                                                                                         @"selectedShippingOptionId": shippingMethod.identifier,
+                                                                                                         @"calledByDevice": @true,
                                                                                                          }];
     
 }
