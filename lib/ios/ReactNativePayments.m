@@ -170,7 +170,8 @@ RCT_EXPORT_METHOD(handleDetailsUpdate: (NSDictionary *)details
                                                            @"sortingCode": [NSNull null],
                                                            @"dependentLocality": [NSNull null],
                                                            @"givenName": name.givenName,
-                                                           @"familyName": name.familyName
+                                                           @"familyName": name.familyName,
+                                                           @"calledByDevice": @true
                                                            }];
 
     // Store completion for later use
